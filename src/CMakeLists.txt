@@ -162,8 +162,8 @@ else()  # NOT ANDROID
     set(HAVE_GLES 1)
 endif() # NOT ANDROID
 
-find_package(Eigen3 QUIET)
-if(EIGEN3_FOUND)
+find_package(Eigen QUIET)
+if(EIGEN_FOUND)
   set(HAVE_EIGEN 1)
   list(APPEND USER_INC  ${EIGEN3_INCLUDE_DIR} )
   message(STATUS "Eigen Found and Enabled")
@@ -247,6 +247,8 @@ endif()
 #######################################################
 ## Add Libraries / Include Directories / Link directories
 
+
+message( "USER_INC: " ${USER_INC} )
 include_directories( ${LIB_INC_DIR} )
 include_directories( ${USER_INC} )
 include_directories( ${INTERNAL_INC} )
@@ -301,30 +303,35 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}Config.cmake.in
 # Add package to CMake package registery for use from the build tree
 export( PACKAGE ${PROJECT_NAME} )
 
+install(TARGETS ${LIBRARY_NAME}
+        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+       )
 #######################################################
 ## Install headers / targets
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/${LIBRARY_NAME}/config.h"
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${LIBRARY_NAME}
-)
-install(DIRECTORY ${INCDIR}
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-)
-install(TARGETS ${LIBRARY_NAME}
-  EXPORT ${PROJECT_NAME}Targets
-  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-  LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-)
-
-#######################################################
-## Install CMake config
-
-install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}Config.cmake"
-          "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-    DESTINATION ${CMAKECONFIG_INSTALL_DIR}
-)
-install(
-    EXPORT ${PROJECT_NAME}Targets DESTINATION ${CMAKECONFIG_INSTALL_DIR}
-)
+# install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/${LIBRARY_NAME}/config.h"
+#   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${LIBRARY_NAME}
+# )
+# install(DIRECTORY ${INCDIR}
+#   DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+# )
+# install(TARGETS ${LIBRARY_NAME}
+#   EXPORT ${PROJECT_NAME}Targets
+#   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+#   LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+#   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+# )
+# 
+# #######################################################
+# ## Install CMake config
+# 
+# install(
+#     FILES "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}Config.cmake"
+#           "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+#     DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+# )
+# install(
+#     EXPORT ${PROJECT_NAME}Targets DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+# )

@@ -1,0 +1,13 @@
+<package>
+    <name>Pangolin</name>
+    <version>0.1.0</version>
+    <description>
+        Pangolin is a lightweight rapid development library for managing OpenGL
+        display / interaction and video input.
+    </description>
+    <maintainer email="contradict@gmail.com">contradict</maintainer>
+    <license>MIT</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+</package>

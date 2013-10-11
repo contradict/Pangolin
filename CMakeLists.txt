@@ -1,12 +1,14 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.3)
 project("Pangolin")
+find_package(catkin REQUIRED COMPONENTS )
+
 set(PANGOLIN_VERSION_MAJOR 0)
 set(PANGOLIN_VERSION_MINOR 1)
 set(PANGOLIN_VERSION ${PANGOLIN_VERSION_MAJOR}.${PANGOLIN_VERSION_MINOR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/")
 
-option(BUILD_EXAMPLES "Build Examples" ON)
+option(BUILD_EXAMPLES "Build Examples" OFF)
 
 if(NOT ANDROID)
    option(BUILD_SHARED_LIBS "Build Shared Library" ON)
@@ -29,17 +31,25 @@ include(SetPlatformVars)
 string(TOLOWER ${PROJECT_NAME} LIBRARY_NAME)
 
 # make an uninstall target 
-configure_file(
- 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-  	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-  	IMMEDIATE @ONLY
-)
+# configure_file(
+#  	"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+#   	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+#   	IMMEDIATE @ONLY
+# )
+catkin_package(
+    INCLUDE_DIRS
+        include
+        "${CMAKE_CURRENT_BINARY_DIR}/src/include"
+    LIBRARIES ${LIBRARY_NAME}
+    DEPENDS Boost OpenGL GLEW
+    )
 
-add_custom_target(uninstall
-  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
-
+#add_custom_target(uninstall
+#  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 add_subdirectory("src")
 
 if(BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
+
+
