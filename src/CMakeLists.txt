@@ -66,7 +66,8 @@ endif()
 ## Setup required includes / link info
 
 # Project headers trump everything (including any potentially installed Pangolin)
-list(APPEND LIB_INC_DIR  "${PROJECT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include" )
+list(APPEND LIB_INC_DIR
+    "${PROJECT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/../include" )
 
 option( CPP11_NO_BOOST "Use c++11 over boost for threading etc." OFF)
 if(CPP11_NO_BOOST)
@@ -253,9 +254,6 @@ include_directories( ${LIB_INC_DIR} )
 include_directories( ${USER_INC} )
 include_directories( ${INTERNAL_INC} )
 
-add_library(${LIBRARY_NAME} ${SOURCES} ${HEADERS})
-target_link_libraries(${LIBRARY_NAME} ${LINK_LIBS})
-
 ## Set Special Compiler flags
 if(MSVC)
   set(CMAKE_CXX_FLAGS "/EHs")
@@ -268,8 +266,11 @@ endif()
 
 configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/include/${LIBRARY_NAME}/config.h"
+  "${CMAKE_CURRENT_BINARY_DIR}/../include/${LIBRARY_NAME}/config.h"
 )
+
+add_library(${LIBRARY_NAME} ${SOURCES} ${HEADERS})
+target_link_libraries(${LIBRARY_NAME} ${LINK_LIBS})
 
 #######################################################
 

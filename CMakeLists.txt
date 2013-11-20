@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project("Pangolin")
-find_package(catkin REQUIRED COMPONENTS )
+find_package(catkin REQUIRED)
 
 set(PANGOLIN_VERSION_MAJOR 0)
 set(PANGOLIN_VERSION_MINOR 1)
@@ -36,10 +36,11 @@ string(TOLOWER ${PROJECT_NAME} LIBRARY_NAME)
 #   	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
 #   	IMMEDIATE @ONLY
 # )
+
 catkin_package(
     INCLUDE_DIRS
         include
-        "${CMAKE_CURRENT_BINARY_DIR}/src/include"
+        "${CMAKE_CURRENT_BINARY_DIR}/include/"
     LIBRARIES ${LIBRARY_NAME}
     DEPENDS Boost OpenGL GLEW
     )
