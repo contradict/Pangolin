@@ -37,10 +37,14 @@ string(TOLOWER ${PROJECT_NAME} LIBRARY_NAME)
 #   	IMMEDIATE @ONLY
 # )
 
+catkin_destinations()
+file( MAKE_DIRECTORY
+    "${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION}")
+
 catkin_package(
     INCLUDE_DIRS
         include
-        "${CMAKE_CURRENT_BINARY_DIR}/include/"
+        "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}"
     LIBRARIES ${LIBRARY_NAME}
     DEPENDS Boost OpenGL GLEW
     )

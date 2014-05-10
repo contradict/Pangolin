@@ -266,8 +266,11 @@ endif()
 
 configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/../include/${LIBRARY_NAME}/config.h"
+  "${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config.h"
 )
+
+include_directories(
+    "${CATKIN_DEVEL_PREFIX}/include" )
 
 add_library(${LIBRARY_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${LIBRARY_NAME} ${LINK_LIBS})
@@ -312,12 +315,12 @@ install(TARGETS ${LIBRARY_NAME}
 #######################################################
 ## Install headers / targets
 
-# install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/${LIBRARY_NAME}/config.h"
-#   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${LIBRARY_NAME}
-# )
-# install(DIRECTORY ${INCDIR}
-#   DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-# )
+install(FILES "${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_INCLUDE_DESTINATION}/config.h"
+    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+install(DIRECTORY ${INCDIR}
+    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
 # install(TARGETS ${LIBRARY_NAME}
 #   EXPORT ${PROJECT_NAME}Targets
 #   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
