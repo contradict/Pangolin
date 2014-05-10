@@ -1,5 +1,5 @@
 <package>
-    <name>Pangolin</name>
+    <name>pangolin</name>
     <version>0.1.0</version>
     <description>
         Pangolin is a lightweight rapid development library for managing OpenGL

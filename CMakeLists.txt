@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project("Pangolin")
+project("pangolin")
 find_package(catkin REQUIRED)
 
 set(PANGOLIN_VERSION_MAJOR 0)
