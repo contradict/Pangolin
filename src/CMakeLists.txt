@@ -163,10 +163,10 @@ else()  # NOT ANDROID
     set(HAVE_GLES 1)
 endif() # NOT ANDROID
 
-find_package(Eigen QUIET)
+find_package(Eigen3 QUIET)
 if(EIGEN_FOUND)
   set(HAVE_EIGEN 1)
-  list(APPEND USER_INC  ${EIGEN3_INCLUDE_DIR} )
+  list(APPEND USER_INC  ${Eigen_INCLUDE_DIR} )
   message(STATUS "Eigen Found and Enabled")
 endif()
 
